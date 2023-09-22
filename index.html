@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Matematika</title>
+    <style>
+      body {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        text-align: center;
+        background-color: #ffcccb; /* Warna latar belakang */
+        margin: 0;
+        padding: 0;
+      }
+
+      .header {
+        background-color: #3d5a80;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .form-container {
+        margin: 20px;
+        padding: 20px;
+        background-color: #f7f7f7; /* Warna latar belakang */
+        border: 2px solid #444;
+        border-radius: 10px;
+        width: 45%; /* Lebar berdasarkan persentase */
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-container select,
+      .form-container input[type="number"] {
+        margin: 10px 0;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: "Arial", sans-serif;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: #3d5a80; /* Warna tombol */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-family: "Verdana", sans-serif;
+        font-size: 16px;
+      }
+
+      button.reset {
+        background-color: #ccc;
+        color: #333;
+        margin-left: 10px;
+      }
+
+      button:hover {
+        background-color: #3d5a80;
+      }
+
+      /* Menambahkan gaya untuk informasi nama */
+      .info {
+        text-align: left;
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <p>Nama: Sahrul Ramadhan</p>
+      <p>Nim: 2215101083</p>
+    </div>
+
+    <div class="container">
+      <!-- Bagian 1: Deret Fibonacci -->
+      <div class="form-container" id="fibonacci-form">
+        <h2 style="color: #3d5a80">Deret Fibonacci</h2>
+        <label for="fibonacci-n">Masukkan nilai n:</label>
+        <input type="number" id="fibonacci-n" />
+        <button style="background-color: #3d5a80" onclick="hitungFibonacci()">
+          Hitung
+        </button>
+        <button
+          class="reset"
+          style="background-color: #ccc"
+          onclick="resetFibonacci()"
+        >
+          Reset
+        </button>
+        <p>Hasil: <span id="fibonacci-result"></span></p>
+      </div>
+
+      <!-- Bagian 2: Perhitungan Volume Bangun Ruang -->
+      <div class="form-container" id="volume-form">
+        <h2 style="color: #3d5a80">Perhitungan Volume Bangun Ruang</h2>
+        <label for="volume-shape">Pilih bentuk:</label>
+        <select id="volume-shape">
+          <option value="kubus">Kubus (cm)</option>
+          <option value="balok">Balok (cm)</option>
+          <option value="tabung">Tabung (cm)</option>
+        </select>
+        <br />
+        <label for="volume-panjang">Panjang (cm):</label>
+        <input type="number" id="volume-panjang" />
+        <br />
+        <label for="volume-lebar">Lebar (cm):</label>
+        <input type="number" id="volume-lebar" />
+        <br />
+        <label for="volume-tinggi">Tinggi (cm):</label>
+        <input type="number" id="volume-tinggi" />
+        <br />
+        <label for="volume-jari-jari">Jari-Jari (cm):</label>
+        <input type="number" id="volume-jari-jari" />
+        <br />
+        <button style="background-color: #3d5a80" onclick="hitungVolume()">
+          Hitung
+        </button>
+        <button
+          class="reset"
+          style="background-color: #ccc"
+          onclick="resetVolume()"
+        >
+          Reset
+        </button>
+        <p>Hasil: <span id="volume-result"></span> cm<sup>3</sup></p>
+      </div>
+    </div>
+
+    <script>
+      let fibonacciResult = document.getElementById("fibonacci-result");
+      let volumeResult = document.getElementById("volume-result");
+
+      function hitungFibonacci() {
+        const n = parseInt(document.getElementById("fibonacci-n").value);
+        let a = 0,
+          b = 1;
+        let result = "";
+
+        for (let i = 0; i < n; i++) {
+          result += a + " ";
+          const temp = a + b;
+          a = b;
+          b = temp;
+        }
+
+        fibonacciResult.textContent = result;
+      }
+
+      function resetFibonacci() {
+        document.getElementById("fibonacci-n").value = "";
+        fibonacciResult.textContent = "";
+      }
+
+      function resetVolume() {
+        document.getElementById("volume-shape").value = "kubus";
+        document.getElementById("volume-panjang").value = "";
+        document.getElementById("volume-lebar").value = "";
+        document.getElementById("volume-tinggi").value = "";
+        document.getElementById("volume-jari-jari").value = "";
+        volumeResult.textContent = "";
+      }
+
+      function hitungVolume() {
+        const shape = document.getElementById("volume-shape").value;
+        const panjang = parseFloat(
+          document.getElementById("volume-panjang").value
+        );
+        const lebar = parseFloat(document.getElementById("volume-lebar").value);
+        const tinggi = parseFloat(
+          document.getElementById("volume-tinggi").value
+        );
+        const jariJari = parseFloat(
+          document.getElementById("volume-jari-jari").value
+        );
+        let result = 0;
+
+        if (shape === "kubus") {
+          result = panjang * panjang * panjang;
+        } else if (shape === "balok") {
+          result = panjang * lebar * tinggi;
+        } else if (shape === "tabung") {
+          result = Math.PI * jariJari * jariJari * tinggi;
+        }
+
+        volumeResult.textContent = result;
+      }
+    </script>
+  </body>
+</html>
